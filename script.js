@@ -1,6 +1,9 @@
-// Replace with your Gist ID after creation
-const GIST_ID = '067ceccd558e073fc845676687f9f653';
-const GITHUB_TOKEN = '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';
+// Load environment variables
+require('dotenv').config();
+
+// Use environment variables
+const GIST_ID = process.env.GITHUB_GIST_ID;
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 async function calculate() {
     const username = document.getElementById('username').value;
