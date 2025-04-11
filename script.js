@@ -1,10 +1,3 @@
-// Load environment variables
-require('dotenv').config();
-
-// Use environment variables
-const GIST_ID = process.env.GITHUB_GIST_ID;
-const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
-
 async function calculate() {
     const username = document.getElementById('username').value;
     const microSize = parseFloat(document.getElementById('microSize').value);
@@ -30,42 +23,33 @@ async function calculate() {
     `;
 
     try {
-        await saveToGist(result);
+        saveToLocalStorage(result);
         await displayHistory();
     } catch (error) {
-        console.error('Error saving to Gist:', error);
+        console.error('Error saving data:', error);
     }
 }
 
-async function saveToGist(newCalculation) {
+function saveToLocalStorage(newCalculation) {
     try {
-        const response = await axios.get(`https://api.github.com/gists/${GIST_ID}`);
-        const content = JSON.parse(response.data.files['calculations.json'].content);
-        content.calculations.push(newCalculation);
-
-        await axios.patch(`https://api.github.com/gists/${GIST_ID}`, {
-            files: {
-                'calculations.json': {
-                    content: JSON.stringify(content, null, 2)
-                }
-            }
-        }, {
-            headers: {
-                'Authorization': `token ${GITHUB_TOKEN}`
-            }
-        });
+        // Get existing calculations or initialize empty array
+        const existingData = JSON.parse(localStorage.getItem('calculations')) || [];
+        existingData.push(newCalculation);
+        
+        // Save back to localStorage
+        localStorage.setItem('calculations', JSON.stringify(existingData));
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-async function displayHistory() {
+function displayHistory() {
     try {
-        const response = await axios.get(`https://api.github.com/gists/${GIST_ID}`);
-        const content = JSON.parse(response.data.files['calculations.json'].content);
+        const calculations = JSON.parse(localStorage.getItem('calculations')) || [];
         
-        const historyHTML = content.calculations
-            .slice(-5)
+        const historyHTML = calculations
+            .slice(-5) // Get last 5 calculations
+            .reverse() // Show newest first
             .map(calc => `
                 <div class="history-item">
                     <p>User: ${calc.username}</p>
