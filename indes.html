@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Specimen Size Calculator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="card">
+    <h1>🔬 Specimen Size Calculator</h1>
+    <p class="subtitle">Calculate real-life size from microscope measurements</p>
+    
+    <input type="text" id="username" placeholder="Enter your name" required />
+    <input type="number" id="microSize" placeholder="Microscope Size (mm)" step="0.01" required />
+    <input type="number" id="magnification" placeholder="Magnification" step="0.01" required />
+    
+    <button onclick="calculate()">Calculate</button>
+    <div id="result"></div>
+    <div id="history"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
