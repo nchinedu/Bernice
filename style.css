@@ -74,7 +74,7 @@ body {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
   }  
-     #history {
+#history {
          margin-top: 20px;
      }
   
@@ -98,3 +98,23 @@ body {
          color: #fff;
          margin-bottom: 10px;
      }
+
+     .history-container {
+      max-height: 400px; /* Adjust this value based on your needs */
+      overflow-y: auto;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 20px 0;
+  }
+  
+  .history-item {
+      border-bottom: 1px solid #eee;
+      padding: 10px 0;
+      margin-bottom: 10px;
+  }
+  
+  .history-item:last-child {
+      border-bottom: none;
+  }
+  

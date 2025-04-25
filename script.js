@@ -48,8 +48,7 @@ function displayHistory() {
         const calculations = JSON.parse(localStorage.getItem('calculations')) || [];
         
         const historyHTML = calculations
-            .slice(-5) // Get last 5 calculations
-            .reverse() // Show newest first
+            .slice(-5)
             .map(calc => `
                 <div class="history-item">
                     <p>User: ${calc.username}</p>
@@ -61,7 +60,9 @@ function displayHistory() {
 
         document.getElementById('history').innerHTML = `
             <h3>Recent Calculations</h3>
-            ${historyHTML}
+            <div class="history-container">
+                ${historyHTML}
+            </div>
         `;
     } catch (error) {
         console.error('Error:', error);
